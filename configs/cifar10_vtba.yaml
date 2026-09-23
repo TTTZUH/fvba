@@ -1,0 +1,42 @@
+experiment:
+  name: cifar10_vtba
+  method: vtba
+  full_run: true
+runtime:
+  seed: 0
+  device: auto
+  allow_cpu_full_run: false
+data:
+  dataset: cifar10
+  root: data
+  download: false
+  num_classes: 10
+  batch_size: 128
+  num_workers: 4
+attack:
+  epsilon: 0.3137254901960784
+  carriers_per_class: 20
+  alpha: 0.5
+  beta: 0.3
+  dct: {block_size: 8, low_freq_size: 3, strength: 1.5}
+model:
+  vit_name: vit_base_patch16_224.augreg_in21k
+  vit_checkpoint: null
+  allow_weight_download: false
+  victim: resnet18
+  lcng_channels: [64, 128, 256, 512]
+  embedding_dim: 512
+training:
+  linear_head_epochs: 100
+  stage1_epochs: 100
+  stage2_epochs: 50
+  victim_epochs: 100
+  generator_lr: 0.0001
+  victim_lr: 0.001
+  momentum: 0.9
+  weight_decay: 0.0005
+evaluation: {require_lpips: true}
+output: {dir: outputs/cifar10_vtba_resnet18_seed0}
+provenance:
+  assumptions: [batch_size, num_workers, linear_head_epochs, victim_epochs, weight_decay, lcng_architecture]
+

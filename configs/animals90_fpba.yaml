@@ -1,0 +1,8 @@
+experiment: {name: animals90_fpba, method: fpba, full_run: true}
+runtime: {seed: 0, device: auto, allow_cpu_full_run: false}
+data: {dataset: animals90, root: data/animals90, download: false, num_classes: 90, image_size: 64, batch_size: 32, num_workers: 4}
+attack: {epsilon: 0.3137254901960784, carriers_per_class: 4, alpha: 0.5, beta: 0.3, gamma: 0.5, dct: {block_size: 8, low_freq_size: 3, strength: 1.5}}
+model: {anchor: resnet18, victim: resnet18, vit_name: vit_base_patch16_224.augreg_in21k, vit_checkpoint: null, allow_weight_download: false, lcng_channels: [64, 128, 256, 512], embedding_dim: 512}
+training: {anchor_epochs: 100, linear_head_epochs: 100, generator_epochs: 150, stage1_epochs: 100, stage2_epochs: 50, victim_epochs: 100, generator_lr: 0.0001, victim_lr: 0.001, momentum: 0.9, weight_decay: 0.0005}
+evaluation: {require_lpips: true}
+output: {dir: outputs/animals90_fpba}
